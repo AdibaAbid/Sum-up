@@ -60,5 +60,6 @@ if(isset($_POST['submit'])){
     <p class="text-white">Already have an account? <a href="../index.php" class="font-bold hover:underline">Login</a>.
     </p>
 </div>
-
+<!-- Script tags -->
+<script src="js/sweetalert.min.js"></script>
 <?php include('components/footer.php'); ?>

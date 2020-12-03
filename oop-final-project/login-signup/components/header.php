@@ -1,3 +1,11 @@
+<?php
+
+session_start();
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +18,20 @@
 
     <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
     <!-- Style file -->
-    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+<style>
+.body-bg {
+    background-color: #9921e8;
+    background-image: linear-gradient(315deg, #9921e8 51%, #5f72be 0%);
+}
+.error{
+    color: rgb(211, 63, 9);
+}
+</style>
 </head>
+
 <body class="body-bg min-h-screen md:pt-8 pb-2 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
     <header class="max-w-lg mx-auto">
         <a href="#">

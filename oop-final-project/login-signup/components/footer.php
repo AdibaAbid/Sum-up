@@ -4,7 +4,6 @@
     <a href="#" class="hover:underline">Privacy</a>
 </footer>
 </body>
-<!-- Script tags -->
-<script src="js/sweetalert.min.js"></script>
+
 
 </html>

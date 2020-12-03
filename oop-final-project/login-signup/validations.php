@@ -11,10 +11,7 @@ class UserValidator extends dbconfig{
      private static $fields = ['email', 'password', 'username'];
      
      public function __construct($post_data){
-      $this->data = $post_data;
-      // $un = ['username'];
-      // $data = [$this->data, ...$un];
-        
+      $this->data = $post_data;      
 
      }
 //Validation forms
@@ -31,33 +28,37 @@ if(isset($this->data['username'])){
    
       if($userName && $userPassword && $userEmail){
       $result = $this->registration($name,$email,$password, $connection);
-      // echo 'result ayaaa--->' . $result;
       if($result){
+      // echo 'result ayaaa--->' . $result;
+
       // echo 'username****' . $userName .'<br/>';
       // echo 'userpass****' . $userPassword .'<br/>';
       // echo 'useremail****' . $userEmail .'<br/>';
-      echo '<script type="text/javascript">';
-      echo 'setTimeout(function () { swal("Congratulations!", "Successfully Login", "success");';
-      echo '}, 500);</script>';
-      // echo "<script>window.location.href='../index.php'</script>";
+   
+      echo "<script>window.location.href='../index.php'</script>";
       }
    
       }
     }else {
-    $email = $connection->real_escape_string($this->data['email']);
+      $email = $connection->real_escape_string($this->data['email']);
       $password = $connection->real_escape_string($this->data['password']);
+      //Passing in a function to check validations
       $userPassword = $this->validatePassword();
       $userEmail = $this->validateEmail();
+      //Sigin querry
       if($userPassword && $userEmail){
       $result = $this->signin($email, $password, $connection);
-      // echo 'result ayaaa--->' . mysqli_num_rows($result) . '<br/>';
-      if( mysqli_num_rows($result)>=1){
-      echo '<script type="text/javascript">';
-      echo 'setTimeout(function () { swal("Congratulations!", "Successfully Login", "success");';
-      echo '}, 500);</script>';
       // echo 'userpass****' . $userPassword .'<br/>';
       // echo 'useremail****' . $userEmail .'<br/>';
+      
+      //Check if the user exist or not?
+      if( mysqli_num_rows($result)>=1){
       echo "<script>window.location.href='eCommerce-PHP-OOP/index.php'</script>";
+      }else if(mysqli_num_rows($result)==0){
+      // echo 'result ayaaa--->' . mysqli_num_rows($result) . '<br/>';
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Sorry!", "Wrong credientials", "error");';
+        echo '}, 500);</script>';
       }
       }
     }
@@ -69,9 +70,10 @@ private function validateUsername(){
     if(empty($val)){
        $this->addError('username', 'username cannot be empty');
   } else{
-       if(!preg_match('/^[a-zAZ0-9]{6,9}$/', $val)){
-       $this->addError('username','username must be 6-9 chars & alphanumeric');
+       if(!preg_match('/^[a-zA-Z]{4,9}\d*$/i', $val)){
+       $this->addError('username','username must be 4-9 chars & alphanumeric');
     }else{
+      // $_SESSION['username'] = $val;
    return true;
   } 
 }
@@ -100,6 +102,7 @@ private function validateEmail(){
    if(!filter_var($val, FILTER_VALIDATE_EMAIL)){
   $this->addError('email','email must be a valid email');
 }else{
+  // $_SESSION['useremail'] = $val;
      return true;
     }
   }
@@ -118,7 +121,10 @@ public function registration($uemail,$uname,$pasword, $connection)
 public function signin($uemail,$pasword, $connection)
 	{
 	$result=mysqli_query($connection,"select id from usertable where UserEmail='$uemail' and userPassword='$pasword'");
-	return $result;
+  // $row= mysqli_fetch_assoc($result);
+  // $userId = $row['ID'];
+  // echo $userId.'id agaiii?';
+  return $result;
   }
   
 // Error Function

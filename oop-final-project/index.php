@@ -7,7 +7,8 @@ if(isset($_POST['submit'])){
     //validate the entries
     $validation = new UserValidator($_POST); 
     $variable = $validation->db_connect();
-    $errors = $validation->validateForm($variable);   
+    $errors = $validation->validateForm($variable); 
+
 
 
 }
@@ -53,5 +54,6 @@ if(isset($_POST['submit'])){
             class="font-bold hover:underline">Sign Up</a>.
     </p>
 </div>
-
+<!-- Script tags -->
+<script src="login-signup/js/sweetalert.min.js"></script>
 <?php include('login-signup/components/footer.php'); ?>
